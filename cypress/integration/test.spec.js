@@ -52,5 +52,17 @@ describe('example test', () => {
       cy.log('URL careers page verify '+msgStatus)     
     })  
   })
+  it('Exports posts headlines on a CSV file', () => {
+    
+    const posts = [];
+     cy.get('.featured-posts__title').each(($el) => {      
+         cy.get($el).invoke('text').then((divText) => {    
+          divText = divText.replace(",","  ");            
+          posts.push(divText);                    
+        }).then(() => {
+          cy.writeFile('cypress/fixtures/test1.txt/logs.csv', posts.join("\n"));
+        })
+      })
+  })
 
 })
